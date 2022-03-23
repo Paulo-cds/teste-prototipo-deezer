@@ -1,6 +1,5 @@
 import {BsSuitHeartFill, BsSuitHeart} from 'react-icons/bs'
 import {AiOutlinePlayCircle} from 'react-icons/ai'
-import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux' 
 import * as S from './styleCard'
 
@@ -8,41 +7,23 @@ function favoriteAction(type, music) {
     return { type: type, music }
   }
 
-const Card = ({music, index, select, control}) => {
-    const [toogle, setToogle] = useState()
-    const dispatch = useDispatch()
-
-    //recebe os dados salvos no redux
+const Card = ({music, index}) => {    
+    const dispatch = useDispatch()    
   const favorites = useSelector(state => state.data)
   const conteins = favorites.filter(favorite => favorite.id === music.id)
-    //função que adiciona no redux
-  function handleFavorite(music, action) {
-    if(action === 'add'){
-        setToogle(true)
-        dispatch(favoriteAction('ADD_FAVORITE',music))
-    } else {
-        setToogle(false)
-        dispatch(favoriteAction('REMOVE_FAVORITE',music))
-    }
     
+  function handleFavorite(music, action) {
+    if(action === 'add'){        
+        dispatch(favoriteAction('ADD_FAVORITE',music))
+    } else {        
+        dispatch(favoriteAction('REMOVE_FAVORITE',music))
+    }    
   }
   
-//   useEffect(() => {
-//     const conteins = favorites.filter(favorite => favorite.id === music.id)
-//     if(conteins.length > 0){
-//         setToogle(true)
-//     } else{
-//         setToogle(false)
-//     }
-//   },[])
-
   const time = () => {
     let timer = music.duration/60
     return('duração ', new Date(timer * 3600 * 1000).toISOString().substr(11, 5))
   }
-  
-  
-
 
     return(
         <S.ContainerCard key={index} >                          

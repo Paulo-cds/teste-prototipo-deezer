@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import * as S from './style'
@@ -7,22 +6,10 @@ import {BiSearchAlt} from 'react-icons/bi'
 import Card from '../Card/card'
 import {useNavigate} from 'react-router-dom'
 
-function searchMusicAction(search) {
-  return { type: 'ADD_FAVORITE', search }
-}
-
-export default function CourseList() {  
-  //recebe os dados salvos no redux
-  const favorites = useSelector(state => state.data)
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
+export default function CourseList() {    
+  const navigate = useNavigate()  
   const [musics, setMusics] = useState([])
-  const [search, setSearch] = useState('Hits Brasil 2022')    
-
-  //função que adiciona no redux
-  function searchM() {
-    dispatch(searchMusicAction(search))
-  }  
+  const [search, setSearch] = useState('Hits Brasil 2022')     
   
   var options = {
     method: 'GET',
@@ -72,7 +59,7 @@ export default function CourseList() {
             musics &&
             musics.map((music, index)=>(              
               index < 10 ?                         
-                <Card music={music} index={index} select={true} key={index} />                        
+                <Card music={music} index={index} key={index} />                        
               : ''
             ))
           }
